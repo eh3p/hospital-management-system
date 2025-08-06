@@ -41,42 +41,45 @@ A comprehensive REST API for managing hospital operations including patients, do
 - Visual Studio 2022 or VS Code
 - Git
 
-## 🚀 Getting Started
+## 🚀 Quick Start
 
-### 1. Clone the Repository
+### Prerequisites
+- [.NET 9.0 SDK](https://dotnet.microsoft.com/download/dotnet/9.0)
+- [Visual Studio 2022](https://visualstudio.microsoft.com/) or [VS Code](https://code.visualstudio.com/)
+- [Git](https://git-scm.com/)
 
-```bash
-git clone https://github.com/eh3p/hospital-management-system.git
-cd hospital-management-system/HospitalManagementSystem
-```
+### Installation
 
-### 2. Install Dependencies
+1. **Clone the Repository**
+   ```bash
+   git clone https://github.com/eh3p/hospital-management-system.git
+   cd hospital-management-system/HospitalManagementSystem
+   ```
 
-```bash
-dotnet restore
-```
+2. **Install Dependencies**
+   ```bash
+   dotnet restore
+   ```
 
-### 3. Build the Project
+3. **Build the Project**
+   ```bash
+   dotnet build
+   ```
 
-```bash
-dotnet build
-```
+4. **Run Database Migrations**
+   ```bash
+   dotnet ef database update
+   ```
 
-### 4. Run Database Migrations
+5. **Start the Application**
+   ```bash
+   dotnet run
+   ```
 
-```bash
-dotnet ef database update
-```
-
-### 5. Run the Application
-
-```bash
-dotnet run
-```
-
-The API will be available at:
-- **API Base URL**: `http://localhost:5000/api`
-- **Swagger Documentation**: `http://localhost:5000/swagger`
+### Access Points
+- **🌐 API Base URL**: `http://localhost:5000/api`
+- **📚 Swagger Documentation**: `http://localhost:5000/swagger`
+- **🏥 Health Check**: `http://localhost:5000/health`
 
 ## 📚 API Endpoints
 
@@ -175,7 +178,7 @@ The application uses `appsettings.json` for configuration:
 
 ### Using curl
 
-```bash
+   ```bash
 # Get all patients
 curl -X GET "http://localhost:5000/api/patients"
 
@@ -218,9 +221,9 @@ HospitalManagementSystem/
 ## 🚀 Deployment
 
 ### Local Development
-```bash
-dotnet run
-```
+   ```bash
+   dotnet run
+   ```
 
 ### Production
 ```bash
@@ -255,5 +258,55 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ---
 
 **Note**: This is a development version. For production use, ensure proper security measures are implemented.
+
+## 📊 Project Statistics
+
+![GitHub stars](https://img.shields.io/github/stars/eh3p/hospital-management-system?style=social)
+![GitHub forks](https://img.shields.io/github/forks/eh3p/hospital-management-system?style=social)
+![GitHub issues](https://img.shields.io/github/issues/eh3p/hospital-management-system)
+![GitHub pull requests](https://img.shields.io/github/issues-pr/eh3p/hospital-management-system)
+![GitHub license](https://img.shields.io/github/license/eh3p/hospital-management-system)
+
+## 📋 Table of Contents
+
+- [🚀 Quick Start](#-quick-start)
+- [📚 API Endpoints](#-api-endpoints)
+- [📊 Database Schema](#-database-schema)
+- [🔧 Configuration](#-configuration)
+- [🧪 Testing](#-testing)
+- [📁 Project Structure](#-project-structure)
+- [🔒 Security](#-security)
+- [🚀 Deployment](#-deployment)
+- [🤝 Contributing](#-contributing)
+- [📄 License](#-license)
+- [📞 Contact](#-contact)
+
+## 🎯 Key Features
+
+- **🏥 Complete Hospital Management**: Patient, Doctor, and Appointment management
+- **🔍 Advanced Search**: Search across all entities with filters
+- **📊 Real-time Data**: Live database with Entity Framework Core
+- **🔐 Security Ready**: Built with security best practices
+- **📚 Auto Documentation**: Swagger/OpenAPI integration
+- **🧪 Validation**: Comprehensive input validation
+- **📈 Scalable**: Clean architecture for easy scaling
+
+## 🏗️ Architecture
+
+```
+┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
+│   Controllers   │    │    Services     │    │   Data Access   │
+│   (API Layer)   │◄──►│  (Business      │◄──►│   (EF Core)     │
+│                 │    │    Logic)       │    │                 │
+└─────────────────┘    └─────────────────┘    └─────────────────┘
+         │                       │                       │
+         ▼                       ▼                       ▼
+┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
+│      DTOs       │    │   AutoMapper    │    │   SQLite DB     │
+│  (Data Transfer)│    │   (Mapping)     │    │   (Storage)     │
+└─────────────────┘    └─────────────────┘    └─────────────────┘
+```
+
+---
 
 **Created with ❤️ by Ehab Ashraf Mourad** 
