@@ -1,268 +1,233 @@
-# 🏥 Hospital Management System
+# 🏥 Hospital Management System API
 
-A comprehensive ASP.NET Core Razor Pages application with Identity authentication, featuring a complete hospital management system with CRUD operations, ModelState validation, TempData, and Session support.
+[![.NET](https://img.shields.io/badge/.NET-9.0-blue.svg)](https://dotnet.microsoft.com/download/dotnet/9.0)
+[![ASP.NET Core](https://img.shields.io/badge/ASP.NET%20Core-9.0-blue.svg)](https://dotnet.microsoft.com/apps/aspnet)
+[![Entity Framework](https://img.shields.io/badge/Entity%20Framework-9.0-blue.svg)](https://docs.microsoft.com/en-us/ef/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![GitHub](https://img.shields.io/badge/GitHub-eh3p-green.svg)](https://github.com/eh3p)
+
+A comprehensive REST API for managing hospital operations including patients, doctors, and appointments. Built with ASP.NET Core 9.0, Entity Framework Core, and SQLite database.
 
 ## 👨‍💻 **Creator**
 **Ehab Ashraf Mourad**
+- GitHub: [eh3p](https://github.com/eh3p)
+- Email: ehabashraf1667@gmail.com
 
-## 🚀 **Live Demo**
-The application is running at: `http://localhost:5000`
+## 🚀 Features
 
-## ✨ **Features Implemented**
+- **Patient Management**: CRUD operations for patient records
+- **Doctor Management**: CRUD operations for doctor profiles with specializations
+- **Appointment Management**: Schedule and manage appointments with validation
+- **Search Functionality**: Search patients, doctors, and appointments
+- **API Documentation**: Swagger/OpenAPI documentation
+- **Code-First Database**: Entity Framework Core with SQLite
+- **AutoMapper**: Clean mapping between entities and DTOs
+- **Service Layer**: Business logic separation
+- **Error Handling**: Comprehensive error handling and logging
 
-### ✅ Identity Integration
-- ASP.NET Core Identity with Individual User Accounts
-- User authentication and authorization
-- Role-based access control
+## 🛠️ Technology Stack
 
-### ✅ Hospital Management Entities
-- **Patient Management**: Complete CRUD operations with validation
-- **Doctor Management**: Complete CRUD operations with validation  
-- **Appointment Management**: Entity relationships between patients and doctors
+- **Framework**: ASP.NET Core 9.0
+- **Database**: SQLite with Entity Framework Core
+- **ORM**: Entity Framework Core (Code-First)
+- **API Documentation**: Swagger/OpenAPI
+- **Mapping**: AutoMapper
+- **Authentication**: ASP.NET Core Identity (ready for implementation)
+- **Logging**: Built-in ASP.NET Core logging
 
-### ✅ ModelState Validation
-- Comprehensive validation attributes on all models
-- Client-side and server-side validation
-- Custom validation messages
-- Email uniqueness validation
-- Phone number format validation
-- Date and time validation
+## 📋 Prerequisites
 
-### ✅ TempData Implementation
-- Success messages after CRUD operations
-- Status messages across page redirects
-- Dashboard welcome messages
-- Form submission confirmations
+- .NET 9.0 SDK
+- Visual Studio 2022 or VS Code
+- Git
 
-### ✅ Session Support
-- User session tracking
-- Page access logging
-- Form interaction tracking
-- Session-based data persistence
-- Session information display on dashboard
+## 🚀 Getting Started
 
-### ✅ CRUD Operations (Razor Pages)
-- **Create**: Add new patients and doctors with validation
-- **Read**: List and view details of patients and doctors
-- **Update**: Edit existing records with validation
-- **Delete**: Soft delete with relationship checks
+### 1. Clone the Repository
 
-### ✅ Authorization Examples
-- `[Authorize]`: Requires any authenticated user
-- `[Authorize(Roles = "Admin")]`: Role-based access control
-- `[AllowAnonymous]`: Public access pages
-
-## 📁 **Project Structure**
-
-```
-HospitalManagementSystem/
-├── Models/
-│   ├── Patient.cs          # Patient entity with validation
-│   ├── Doctor.cs           # Doctor entity with validation
-│   └── Appointment.cs      # Appointment entity with relationships
-├── Data/
-│   └── ApplicationDbContext.cs  # EF Core context with hospital entities
-├── Pages/
-│   ├── Hospital/
-│   │   ├── Dashboard.cshtml     # Main dashboard with statistics
-│   │   ├── Patients/            # Patient CRUD pages
-│   │   │   ├── Index.cshtml     # List patients
-│   │   │   ├── Create.cshtml    # Add new patient
-│   │   │   ├── Edit.cshtml      # Edit patient
-│   │   │   ├── Delete.cshtml    # Delete patient
-│   │   │   └── Details.cshtml   # View patient details
-│   │   ├── Doctors/             # Doctor CRUD pages
-│   │   │   └── Index.cshtml     # List doctors
-│   │   ├── Admin/               # Admin-only pages
-│   │   │   └── AdminPanel.cshtml # Role-based access example
-│   │   └── Public/              # Public pages
-│   │       └── About.cshtml     # Anonymous access example
-│   └── Shared/
-│       └── _Layout.cshtml       # Navigation with FontAwesome
-└── Program.cs                   # Session configuration
+```bash
+git clone https://github.com/eh3p/hospital-management-system.git
+cd hospital-management-system/HospitalManagementSystem
 ```
 
-## 🔧 **Key Features Demonstrated**
+### 2. Install Dependencies
 
-### 1. ModelState Validation
-```csharp
-[Required(ErrorMessage = "Name is required")]
-[StringLength(100, ErrorMessage = "Name cannot be longer than 100 characters")]
-[Display(Name = "Full Name")]
-public string Name { get; set; } = string.Empty;
+```bash
+dotnet restore
 ```
 
-### 2. TempData Usage
-```csharp
-[TempData]
-public string? StatusMessage { get; set; }
+### 3. Build the Project
 
-// In action method
-TempData["StatusMessage"] = $"Patient '{Patient.Name}' has been created successfully!";
+```bash
+dotnet build
 ```
 
-### 3. Session Management
-```csharp
-// Store session data
-HttpContext.Session.SetString("CurrentUser", User.Identity?.Name ?? "Unknown");
+### 4. Run Database Migrations
 
-// Retrieve session data
-var currentUser = HttpContext.Session.GetString("CurrentUser");
+```bash
+dotnet ef database update
 ```
 
-### 4. Authorization Attributes
-```csharp
-[Authorize]                    // Requires authentication
-[Authorize(Roles = "Admin")]   // Requires Admin role
-[AllowAnonymous]               // Allows anonymous access
+### 5. Run the Application
+
+```bash
+dotnet run
 ```
 
-## 🗄️ **Database Schema**
+The API will be available at:
+- **API Base URL**: `http://localhost:5000/api`
+- **Swagger Documentation**: `http://localhost:5000/swagger`
 
-### Patients Table
+## 📚 API Endpoints
+
+### Patients
+- `GET /api/patients` - Get all patients
+- `GET /api/patients/{id}` - Get patient by ID
+- `POST /api/patients` - Create new patient
+- `PUT /api/patients/{id}` - Update patient
+- `DELETE /api/patients/{id}` - Delete patient
+- `GET /api/patients/search?searchTerm={term}` - Search patients
+
+### Doctors
+- `GET /api/doctors` - Get all doctors
+- `GET /api/doctors/{id}` - Get doctor by ID
+- `POST /api/doctors` - Create new doctor
+- `PUT /api/doctors/{id}` - Update doctor
+- `DELETE /api/doctors/{id}` - Delete doctor
+- `GET /api/doctors/search?searchTerm={term}` - Search doctors
+- `GET /api/doctors/specialization/{specialization}` - Get doctors by specialization
+
+### Appointments
+- `GET /api/appointments` - Get all appointments
+- `GET /api/appointments/{id}` - Get appointment by ID
+- `POST /api/appointments` - Create new appointment
+- `PUT /api/appointments/{id}` - Update appointment
+- `DELETE /api/appointments/{id}` - Delete appointment
+- `GET /api/appointments/patient/{patientId}` - Get appointments by patient
+- `GET /api/appointments/doctor/{doctorId}` - Get appointments by doctor
+- `POST /api/appointments/search` - Search appointments
+
+## 📊 Database Schema
+
+### Patient
 - Id (Primary Key)
-- Name (Required, Max 100 chars)
-- Email (Required, Unique, Email format)
-- PhoneNumber (Required, Phone format)
-- DateOfBirth (Required, Date)
-- Gender (Required)
-- Address (Required, Max 200 chars)
-- MedicalHistory (Optional)
-- RegistrationDate (Auto-set)
-- IsActive (Boolean)
+- Name
+- Email
+- PhoneNumber
+- DateOfBirth
+- Gender
+- Address
+- MedicalHistory
+- RegistrationDate
+- IsActive
 
-### Doctors Table
+### Doctor
 - Id (Primary Key)
-- Name (Required, Max 100 chars)
-- Email (Required, Email format)
-- PhoneNumber (Required, Phone format)
-- Specialization (Required, Max 100 chars)
-- LicenseNumber (Required, Max 50 chars)
-- YearsOfExperience (Required, Range 0-50)
-- IsAvailable (Boolean)
-- HireDate (Auto-set)
-- IsActive (Boolean)
+- Name
+- Email
+- PhoneNumber
+- Specialization
+- LicenseNumber
+- YearsOfExperience
+- IsAvailable
+- HireDate
+- IsActive
 
-### Appointments Table
+### Appointment
 - Id (Primary Key)
 - PatientId (Foreign Key)
 - DoctorId (Foreign Key)
-- AppointmentDate (Required, Date)
-- AppointmentTime (Required, Time)
-- AppointmentType (Required)
-- Symptoms (Optional)
-- Diagnosis (Optional)
-- Prescription (Optional)
-- Status (Required, Default: "Scheduled")
-- Notes (Optional)
-- CreatedDate (Auto-set)
+- AppointmentDate
+- AppointmentTime
+- AppointmentType
+- Symptoms
+- Diagnosis
+- Prescription
+- Status
+- Notes
+- CreatedDate
 
-## 🚀 **How to Run**
+## 🔧 Configuration
 
-### Prerequisites
-- .NET 9.0 SDK
-- Visual Studio 2022 or VS Code
+The application uses `appsettings.json` for configuration:
 
-### Installation Steps
+```json
+{
+  "ConnectionStrings": {
+    "DefaultConnection": "Data Source=app.db"
+  },
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Warning"
+    }
+  }
+}
+```
 
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/yourusername/hospital-management-system.git
-   cd hospital-management-system
-   ```
+## 🧪 Testing the API
 
-2. **Restore dependencies:**
-   ```bash
-   dotnet restore
-   ```
+### Using Swagger UI
 
-3. **Run database migrations:**
-   ```bash
-   dotnet ef database update
-   ```
+1. Navigate to `http://localhost:5000/swagger`
+2. Explore available endpoints
+3. Test API calls directly from the browser
 
-4. **Run the application:**
-   ```bash
-   dotnet run
-   ```
+### Using curl
 
-5. **Access the application:**
-   - Open browser and go to `http://localhost:5000`
-   - Register a new user account
-   - Explore the hospital management features
+```bash
+# Get all patients
+curl -X GET "http://localhost:5000/api/patients"
 
-## 🧪 **Features to Test**
+# Create a new patient
+curl -X POST "http://localhost:5000/api/patients" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "Ehab",
+    "email": "Ehab@email.com",
+    "phoneNumber": "01029236732",
+    "dateOfBirth": "1990-01-01T00:00:00",
+    "gender": "Male",
+    "address": "Egypt"
+  }'
+```
 
-### 1. Authentication & Authorization
-- Register a new user account
-- Login with credentials
-- Access protected pages (Dashboard, Patients, Doctors)
-- Try accessing Admin Panel (requires Admin role)
-- Access public About page (no authentication required)
+## 📁 Project Structure
 
-### 2. CRUD Operations
-- **Create**: Add new patients and doctors
-- **Read**: View lists and details
-- **Update**: Edit existing records
-- **Delete**: Remove records (soft delete)
+```
+HospitalManagementSystem/
+├── Controllers/          # API Controllers
+├── Data/                # Database context and migrations
+├── DTOs/                # Data Transfer Objects
+├── Mapping/             # AutoMapper profiles
+├── Models/              # Entity models
+├── Services/            # Business logic services
+├── Program.cs           # Application entry point
+├── appsettings.json     # Configuration
+└── API_DOCUMENTATION.md # Detailed API documentation
+```
 
-### 3. Validation
-- Try submitting forms with invalid data
-- Test email uniqueness validation
-- Test required field validation
-- Test format validation (phone, email, dates)
+## 🔒 Security Considerations
 
-### 4. TempData & Session
-- Create/Edit/Delete records and see success messages
-- Check session information on dashboard
-- Navigate between pages and observe session persistence
+- Currently, the API is publicly accessible
+- For production use, implement proper authentication and authorization
+- Consider using JWT tokens or API keys
+- Implement rate limiting
+- Use HTTPS in production
 
-### 5. Navigation
-- Use the responsive navigation menu
-- Test dropdown menus
-- Navigate between different sections
+## 🚀 Deployment
 
-## 🛠️ **Technology Stack**
+### Local Development
+```bash
+dotnet run
+```
 
-- **Framework**: ASP.NET Core 9.0
-- **UI**: Razor Pages with Bootstrap 5
-- **Database**: SQLite with Entity Framework Core
-- **Authentication**: ASP.NET Core Identity
-- **Icons**: FontAwesome 6.0
-- **Validation**: Data Annotations with ModelState
-- **State Management**: TempData and Session
+### Production
+```bash
+dotnet publish -c Release
+```
 
-## 🔒 **Security Features**
-
-- **Authentication**: User registration and login
-- **Authorization**: Role-based access control
-- **Validation**: Server-side and client-side validation
-- **Session Security**: HttpOnly cookies, secure session management
-- **Data Protection**: Soft deletes, relationship integrity checks
-
-## 📊 **Screenshots**
-
-### Dashboard
-![Dashboard](https://via.placeholder.com/800x400/007bff/ffffff?text=Hospital+Dashboard)
-
-### Patient Management
-![Patient Management](https://via.placeholder.com/800x400/28a745/ffffff?text=Patient+Management)
-
-### Doctor Management
-![Doctor Management](https://via.placeholder.com/800x400/ffc107/000000?text=Doctor+Management)
-
-## 🔮 **Future Enhancements**
-
-- Appointment scheduling system
-- Doctor availability management
-- Patient medical history tracking
-- Reporting and analytics
-- Email notifications
-- Advanced search and filtering
-- API endpoints for mobile apps
-- Multi-tenant support
-
-## 🤝 **Contributing**
+## 🤝 Contributing
 
 1. Fork the repository
 2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
@@ -270,25 +235,25 @@ var currentUser = HttpContext.Session.GetString("CurrentUser");
 4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-## 📄 **License**
+## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 📞 **Contact**
+## 📞 Contact
 
 **Ehab Ashraf Mourad**
-- GitHub: [@yourusername](https://github.com/yourusername)
-- Email: your.email@example.com
+- GitHub: [eh3p](https://github.com/eh3p)
+- Email: ehabashraf1667@gmail.com
 
-## 🙏 **Acknowledgments**
+## 🙏 Acknowledgments
 
 - ASP.NET Core team for the excellent framework
-- Bootstrap team for the responsive UI components
-- FontAwesome for the beautiful icons
 - Entity Framework team for the ORM
+- Swagger team for the API documentation tools
+- AutoMapper team for the mapping library
 
 ---
 
-**Note**: This project demonstrates best practices for ASP.NET Core development including proper separation of concerns, validation, security, and user experience design.
+**Note**: This is a development version. For production use, ensure proper security measures are implemented.
 
 **Created with ❤️ by Ehab Ashraf Mourad** 
