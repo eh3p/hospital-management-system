@@ -1,0 +1,165 @@
+@page
+@model HospitalManagementSystem.Pages.Hospital.DashboardModel
+@{
+    ViewData["Title"] = "Hospital Dashboard";
+}
+
+<div class="container-fluid">
+    <h1 class="h3 mb-2 text-gray-800">Hospital Dashboard</h1>
+    
+    @if (!string.IsNullOrEmpty(Model.StatusMessage))
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @Model.StatusMessage
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    }
+
+    @if (TempData["DashboardMessage"] != null)
+    {
+        <div class="alert alert-info alert-dismissible fade show" role="alert">
+            @TempData["DashboardMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    }
+
+    <!-- Session Information Card -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Session Information</h6>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-4">
+                    <strong>Current User:</strong> @(Model.CurrentUser ?? "Not set")
+                </div>
+                <div class="col-md-4">
+                    <strong>Last Accessed:</strong> @(Model.LastAccessed ?? "Not set")
+                </div>
+                <div class="col-md-4">
+                    <strong>Session Info:</strong> @Model.SessionInfo
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Statistics Cards -->
+    <div class="row">
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                Total Patients</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.TotalPatients</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-users fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                Total Doctors</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.TotalDoctors</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-user-md fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-info shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                Total Appointments</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.TotalAppointments</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-warning shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                Active Appointments</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.ActiveAppointments</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-clock fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Quick Actions</h6>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <a asp-page="/Hospital/Patients/Create" class="btn btn-primary btn-block">
+                                <i class="fas fa-plus"></i> Add Patient
+                            </a>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <a asp-page="/Hospital/Doctors/Create" class="btn btn-success btn-block">
+                                <i class="fas fa-plus"></i> Add Doctor
+                            </a>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <a asp-page="/Hospital/Patients/Index" class="btn btn-info btn-block">
+                                <i class="fas fa-users"></i> View Patients
+                            </a>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <a asp-page="/Hospital/Doctors/Index" class="btn btn-warning btn-block">
+                                <i class="fas fa-user-md"></i> View Doctors
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">System Information</h6>
+                </div>
+                <div class="card-body">
+                    <p><strong>Current Time:</strong> @DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")</p>
+                    <p><strong>Session ID:</strong> @HttpContext.Session.Id</p>
+                    <p><strong>User Agent:</strong> @HttpContext.Request.Headers["User-Agent"].ToString()</p>
+                    <p><strong>IP Address:</strong> @HttpContext.Connection.RemoteIpAddress</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 

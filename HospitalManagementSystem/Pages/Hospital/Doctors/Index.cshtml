@@ -1,0 +1,77 @@
+@page
+@model HospitalManagementSystem.Pages.Hospital.Doctors.IndexModel
+@{
+    ViewData["Title"] = "Doctors";
+}
+
+<div class="container-fluid">
+    <h1 class="h3 mb-2 text-gray-800">Doctors Management</h1>
+    
+    @if (!string.IsNullOrEmpty(Model.StatusMessage))
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @Model.StatusMessage
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    }
+
+    <div class="card shadow mb-4">
+        <div class="card-header py-3 d-flex justify-content-between align-items-center">
+            <h6 class="m-0 font-weight-bold text-primary">Doctors List</h6>
+            <a asp-page="Create" class="btn btn-primary btn-sm">
+                <i class="fas fa-plus"></i> Add New Doctor
+            </a>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Specialization</th>
+                            <th>Experience</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var doctor in Model.Doctors)
+                        {
+                            <tr>
+                                <td>@doctor.Name</td>
+                                <td>@doctor.Email</td>
+                                <td>@doctor.Specialization</td>
+                                <td>@doctor.YearsOfExperience years</td>
+                                <td>
+                                    <span class="badge @(doctor.IsAvailable ? "bg-success" : "bg-danger")">
+                                        @(doctor.IsAvailable ? "Available" : "Unavailable")
+                                    </span>
+                                </td>
+                                <td>
+                                    <a asp-page="./Details" asp-route-id="@doctor.Id" class="btn btn-info btn-sm">
+                                        <i class="fas fa-eye"></i> View
+                                    </a>
+                                    <a asp-page="./Edit" asp-route-id="@doctor.Id" class="btn btn-warning btn-sm">
+                                        <i class="fas fa-edit"></i> Edit
+                                    </a>
+                                    <a asp-page="./Delete" asp-route-id="@doctor.Id" class="btn btn-danger btn-sm">
+                                        <i class="fas fa-trash"></i> Delete
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            $('#dataTable').DataTable();
+        });
+    </script>
+} 

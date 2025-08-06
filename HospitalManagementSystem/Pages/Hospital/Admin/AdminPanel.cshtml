@@ -1,0 +1,76 @@
+@page
+@model HospitalManagementSystem.Pages.Hospital.Admin.AdminPanelModel
+@{
+    ViewData["Title"] = "Admin Panel";
+}
+
+<div class="container-fluid">
+    <h1 class="h3 mb-2 text-gray-800">Admin Panel</h1>
+    
+    <div class="alert alert-success">
+        <h5>Welcome to Admin Panel!</h5>
+        <p>This page is only accessible to users with Admin role.</p>
+    </div>
+
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Administrative Functions</h6>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>System Management</h5>
+                    <ul class="list-group">
+                        <li class="list-group-item">User Management</li>
+                        <li class="list-group-item">Role Management</li>
+                        <li class="list-group-item">System Configuration</li>
+                        <li class="list-group-item">Database Backup</li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <h5>Hospital Management</h5>
+                    <ul class="list-group">
+                        <li class="list-group-item">Department Management</li>
+                        <li class="list-group-item">Staff Scheduling</li>
+                        <li class="list-group-item">Inventory Management</li>
+                        <li class="list-group-item">Reports & Analytics</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Authorization Examples</h6>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h6 class="card-title">[Authorize]</h6>
+                            <p class="card-text">Requires any authenticated user</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h6 class="card-title">[Authorize(Roles = "Admin")]</h6>
+                            <p class="card-text">Requires Admin role</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h6 class="card-title">[AllowAnonymous]</h6>
+                            <p class="card-text">Allows anonymous access</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 

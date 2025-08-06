@@ -1,0 +1,92 @@
+@page
+@model HospitalManagementSystem.Pages.Hospital.Patients.DetailsModel
+@{
+    ViewData["Title"] = "Patient Details";
+}
+
+<div class="container-fluid">
+    <h1 class="h3 mb-2 text-gray-800">Patient Details</h1>
+    
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Patient Information</h6>
+        </div>
+        <div class="card-body">
+            <dl class="row">
+                <dt class="col-sm-3">Name</dt>
+                <dd class="col-sm-9">@Model.Patient.Name</dd>
+
+                <dt class="col-sm-3">Email</dt>
+                <dd class="col-sm-9">@Model.Patient.Email</dd>
+
+                <dt class="col-sm-3">Phone</dt>
+                <dd class="col-sm-9">@Model.Patient.PhoneNumber</dd>
+
+                <dt class="col-sm-3">Date of Birth</dt>
+                <dd class="col-sm-9">@Model.Patient.DateOfBirth.ToShortDateString()</dd>
+
+                <dt class="col-sm-3">Gender</dt>
+                <dd class="col-sm-9">@Model.Patient.Gender</dd>
+
+                <dt class="col-sm-3">Address</dt>
+                <dd class="col-sm-9">@Model.Patient.Address</dd>
+
+                <dt class="col-sm-3">Medical History</dt>
+                <dd class="col-sm-9">@(string.IsNullOrEmpty(Model.Patient.MedicalHistory) ? "No medical history recorded" : Model.Patient.MedicalHistory)</dd>
+
+                <dt class="col-sm-3">Registration Date</dt>
+                <dd class="col-sm-9">@Model.Patient.RegistrationDate.ToShortDateString()</dd>
+            </dl>
+
+            <div class="mt-4">
+                <a asp-page="./Edit" asp-route-id="@Model.Patient.Id" class="btn btn-warning">
+                    <i class="fas fa-edit"></i> Edit Patient
+                </a>
+                <a asp-page="./Index" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left"></i> Back to List
+                </a>
+            </div>
+        </div>
+    </div>
+
+    @if (Model.Appointments.Any())
+    {
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Appointment History</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Doctor</th>
+                                <th>Type</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var appointment in Model.Appointments)
+                            {
+                                <tr>
+                                    <td>@appointment.AppointmentDate.ToShortDateString()</td>
+                                    <td>@appointment.AppointmentTime.ToString(@"hh\:mm")</td>
+                                    <td>@appointment.Doctor?.Name</td>
+                                    <td>@appointment.AppointmentType</td>
+                                    <td>
+                                        <span class="badge @(appointment.Status == "Completed" ? "bg-success" : 
+                                                          appointment.Status == "Cancelled" ? "bg-danger" : "bg-warning")">
+                                            @appointment.Status
+                                        </span>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    }
+</div> 

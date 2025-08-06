@@ -1,0 +1,40 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome to Hospital Management System</h1>
+    <p>Manage patients, doctors, and appointments efficiently.</p>
+    
+    <div class="row mt-4">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Hospital Dashboard</h5>
+                    <p class="card-text">View system statistics and quick actions.</p>
+                    <a asp-page="/Hospital/Dashboard" class="btn btn-primary">Go to Dashboard</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Patients</h5>
+                    <p class="card-text">Manage patient records and information.</p>
+                    <a asp-page="/Hospital/Patients/Index" class="btn btn-info">Manage Patients</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Doctors</h5>
+                    <p class="card-text">Manage doctor profiles and schedules.</p>
+                    <a asp-page="/Hospital/Doctors/Index" class="btn btn-success">Manage Doctors</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
