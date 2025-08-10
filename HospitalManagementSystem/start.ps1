@@ -1,32 +1,42 @@
-# Hospital Management System Startup Script
+<#
+.HOSPITAL MANAGEMENT SYSTEM STARTUP SCRIPT
+.VERSION 2.0
+#>
+
 Write-Host "🏥 Starting Hospital Management System..." -ForegroundColor Green
 Write-Host ""
-Write-Host "Application will be available at: http://localhost:5000" -ForegroundColor Yellow
+Write-Host "API Endpoint: http://localhost:5000" -ForegroundColor Yellow
+Write-Host "Swagger UI: http://localhost:5000/swagger" -ForegroundColor Yellow
 Write-Host ""
-Write-Host "Press Ctrl+C to stop the application" -ForegroundColor Cyan
+Write-Host "Press Ctrl+C to stop" -ForegroundColor Cyan
 Write-Host ""
 
-# Set the working directory
-Set-Location $PSScriptRoot
+# Set environment variables
+$env:ASPNETCORE_ENVIRONMENT="Development"
+$env:ASPNETCORE_URLS="http://localhost:5000"
 
-# Kill any existing dotnet processes on port 5000
+# Cleanup previous processes
 try {
-    $processes = Get-NetTCPConnection -LocalPort 5000 -ErrorAction SilentlyContinue | ForEach-Object { Get-Process -Id $_.OwningProcess -ErrorAction SilentlyContinue }
-    if ($processes) {
-        Write-Host "Stopping existing processes on port 5000..." -ForegroundColor Yellow
-        $processes | Stop-Process -Force -ErrorAction SilentlyContinue
+    $process = Get-Process -Name "dotnet" -ErrorAction SilentlyContinue | 
+              Where-Object { $_.MainWindowTitle -like "*HospitalManagementSystem*" }
+    if ($process) {
+        Write-Host "Stopping existing process..." -ForegroundColor Yellow
+        $process | Stop-Process -Force
         Start-Sleep -Seconds 2
     }
 } catch {
-    Write-Host "No existing processes found on port 5000" -ForegroundColor Gray
+    Write-Host "Cleanup warning: $_" -ForegroundColor Yellow
 }
 
-# Start the application
+# Start application
 try {
-    Write-Host "Starting application..." -ForegroundColor Green
-    dotnet run --urls "http://localhost:5000" --environment Development
+    dotnet run --no-build
 } catch {
-    Write-Host "Error starting application: $($_.Exception.Message)" -ForegroundColor Red
-    Write-Host "Press any key to exit..." -ForegroundColor Yellow
-    $null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
-} 
+    Write-Host "Startup failed: $_" -ForegroundColor Red
+    Write-Host "Try these solutions:" -ForegroundColor Yellow
+    Write-Host "1. Run 'dotnet build' manually" -ForegroundColor Cyan
+    Write-Host "2. Check database connection settings" -ForegroundColor Cyan
+    Write-Host "3. Verify SQL Server is running" -ForegroundColor Cyan
+    Pause
+    exit 1
+}

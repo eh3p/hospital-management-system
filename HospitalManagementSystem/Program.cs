@@ -12,15 +12,26 @@ builder.Logging.AddConsole();
 builder.Logging.AddDebug();
 
 // Add services to the container.
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") 
+    ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+
+// SQL Server Configuration
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlite(connectionString));
+    options.UseSqlServer(connectionString,
+    sqlOptions => 
+    {
+        sqlOptions.EnableRetryOnFailure(
+            maxRetryCount: 5,
+            maxRetryDelay: TimeSpan.FromSeconds(30),
+            errorNumbersToAdd: null);
+    }));
+
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
-// Add API Controllers
+// Add Controllers with Newtonsoft JSON settings
 builder.Services.AddControllers()
     .AddNewtonsoftJson(options =>
     {
@@ -28,21 +39,34 @@ builder.Services.AddControllers()
         options.SerializerSettings.DateTimeZoneHandling = Newtonsoft.Json.DateTimeZoneHandling.Utc;
     });
 
+// Add Razor Pages support
+builder.Services.AddRazorPages();
+
+// Add session support
+builder.Services.AddDistributedMemoryCache();
+
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
+
 // Add AutoMapper
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 
-// Add Swagger/OpenAPI
+// Add Swagger
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
+    c.SwaggerDoc("v1", new()
     {
         Title = "Hospital Management System API",
         Version = "v1",
-        Description = "A comprehensive API for managing hospital operations including patients, doctors, and appointments.",
-        Contact = new Microsoft.OpenApi.Models.OpenApiContact
+        Description = "API for hospital management",
+        Contact = new()
         {
-            Name = "Hospital Management System",
+            Name = "Support",
             Email = "support@hospital.com"
         }
     });
@@ -53,78 +77,56 @@ builder.Services.AddScoped<IPatientService, PatientService>();
 builder.Services.AddScoped<IDoctorService, DoctorService>();
 builder.Services.AddScoped<IAppointmentService, AppointmentService>();
 
-builder.Services.AddRazorPages();
-
-// Add Session support
-builder.Services.AddDistributedMemoryCache();
-builder.Services.AddSession(options =>
-{
-    options.IdleTimeout = TimeSpan.FromMinutes(30);
-    options.Cookie.HttpOnly = true;
-    options.Cookie.IsEssential = true;
-});
-
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// Configure the HTTP pipeline
 if (app.Environment.IsDevelopment())
 {
     app.UseMigrationsEndPoint();
+
     app.UseSwagger();
     app.UseSwaggerUI(c =>
     {
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Hospital Management System API V1");
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Hospital API v1");
         c.RoutePrefix = "swagger";
     });
 }
 else
 {
     app.UseExceptionHandler("/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
-    app.UseHttpsRedirection();
 }
+
+app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
 
-// Add Session middleware
 app.UseSession();
 
 app.UseAuthentication();
 app.UseAuthorization();
 
-// Map API Controllers
 app.MapControllers();
+app.MapRazorPages();
 
-app.MapStaticAssets();
-app.MapRazorPages()
-   .WithStaticAssets();
-
-// Ensure database is created
+// Apply migrations on startup
 using (var scope = app.Services.CreateScope())
 {
-    var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-    var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
+    var services = scope.ServiceProvider;
+    var logger = services.GetRequiredService<ILogger<Program>>();
     
     try
     {
-        logger.LogInformation("Ensuring database is created...");
-        context.Database.EnsureCreated();
-        logger.LogInformation("Database created successfully.");
+        var context = services.GetRequiredService<ApplicationDbContext>();
+        logger.LogInformation("Applying migrations...");
+        context.Database.Migrate();
+        logger.LogInformation("Migrations applied successfully.");
     }
     catch (Exception ex)
     {
-        logger.LogError(ex, "An error occurred while creating the database.");
-        // Don't throw - let the application continue
+        logger.LogError(ex, "An error occurred while migrating the database.");
     }
 }
-
-// Add graceful shutdown
-app.Lifetime.ApplicationStopping.Register(() =>
-{
-    var logger = app.Services.GetRequiredService<ILogger<Program>>();
-    logger.LogInformation("Application is shutting down gracefully...");
-});
 
 app.Run();

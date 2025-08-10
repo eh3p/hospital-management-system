@@ -1,312 +1,171 @@
-# 🏥 Hospital Management System API
+# 👨‍💻 Ehab Ashraf Mourad
 
-[![.NET](https://img.shields.io/badge/.NET-9.0-blue.svg)](https://dotnet.microsoft.com/download/dotnet/9.0)
-[![ASP.NET Core](https://img.shields.io/badge/ASP.NET%20Core-9.0-blue.svg)](https://dotnet.microsoft.com/apps/aspnet)
-[![Entity Framework](https://img.shields.io/badge/Entity%20Framework-9.0-blue.svg)](https://docs.microsoft.com/en-us/ef/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![GitHub](https://img.shields.io/badge/GitHub-eh3p-green.svg)](https://github.com/eh3p)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/ehab-ashraf-9a43a9283)
+[![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/eh3p)
+[![Email](https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:ehabashraf1667@gmail.com)
+[![Portfolio](https://img.shields.io/badge/Portfolio-FF5722?style=for-the-badge&logo=todoist&logoColor=white)](https://github.com/eh3p)
 
-A comprehensive REST API for managing hospital operations including patients, doctors, and appointments. Built with ASP.NET Core 9.0, Entity Framework Core, and SQLite database.
+## 🚀 Full-Stack Software Engineer
 
-## 👨‍💻 **Creator**
-**Ehab Ashraf Mourad**
-- GitHub: [eh3p](https://github.com/eh3p)
-- Email: ehabashraf1667@gmail.com
+> **Passionate developer crafting innovative solutions with modern technologies**
 
-## 🚀 Features
+### 🎯 About Me
 
-- **Patient Management**: CRUD operations for patient records
-- **Doctor Management**: CRUD operations for doctor profiles with specializations
-- **Appointment Management**: Schedule and manage appointments with validation
-- **Search Functionality**: Search patients, doctors, and appointments
-- **API Documentation**: Swagger/OpenAPI documentation
-- **Code-First Database**: Entity Framework Core with SQLite
-- **AutoMapper**: Clean mapping between entities and DTOs
-- **Service Layer**: Business logic separation
-- **Error Handling**: Comprehensive error handling and logging
+I'm a dedicated software engineer with expertise in building robust, scalable applications using cutting-edge technologies. My passion lies in creating efficient, user-friendly solutions that solve real-world problems.
 
-## 🛠️ Technology Stack
-
-- **Framework**: ASP.NET Core 9.0
-- **Database**: SQLite with Entity Framework Core
-- **ORM**: Entity Framework Core (Code-First)
-- **API Documentation**: Swagger/OpenAPI
-- **Mapping**: AutoMapper
-- **Authentication**: ASP.NET Core Identity (ready for implementation)
-- **Logging**: Built-in ASP.NET Core logging
-
-## 📋 Prerequisites
-
-- .NET 9.0 SDK
-- Visual Studio 2022 or VS Code
-- Git
-
-## 🚀 Quick Start
-
-### Prerequisites
-- [.NET 9.0 SDK](https://dotnet.microsoft.com/download/dotnet/9.0)
-- [Visual Studio 2022](https://visualstudio.microsoft.com/) or [VS Code](https://code.visualstudio.com/)
-- [Git](https://git-scm.com/)
-
-### Installation
-
-1. **Clone the Repository**
-   ```bash
-   git clone https://github.com/eh3p/hospital-management-system.git
-   cd hospital-management-system/HospitalManagementSystem
-   ```
-
-2. **Install Dependencies**
-   ```bash
-   dotnet restore
-   ```
-
-3. **Build the Project**
-   ```bash
-   dotnet build
-   ```
-
-4. **Run Database Migrations**
-   ```bash
-   dotnet ef database update
-   ```
-
-5. **Start the Application**
-   ```bash
-   dotnet run
-   ```
-
-### Access Points
-- **🌐 API Base URL**: `http://localhost:5000/api`
-- **📚 Swagger Documentation**: `http://localhost:5000/swagger`
-- **🏥 Health Check**: `http://localhost:5000/health`
-
-## 📚 API Endpoints
-
-### Patients
-- `GET /api/patients` - Get all patients
-- `GET /api/patients/{id}` - Get patient by ID
-- `POST /api/patients` - Create new patient
-- `PUT /api/patients/{id}` - Update patient
-- `DELETE /api/patients/{id}` - Delete patient
-- `GET /api/patients/search?searchTerm={term}` - Search patients
-
-### Doctors
-- `GET /api/doctors` - Get all doctors
-- `GET /api/doctors/{id}` - Get doctor by ID
-- `POST /api/doctors` - Create new doctor
-- `PUT /api/doctors/{id}` - Update doctor
-- `DELETE /api/doctors/{id}` - Delete doctor
-- `GET /api/doctors/search?searchTerm={term}` - Search doctors
-- `GET /api/doctors/specialization/{specialization}` - Get doctors by specialization
-
-### Appointments
-- `GET /api/appointments` - Get all appointments
-- `GET /api/appointments/{id}` - Get appointment by ID
-- `POST /api/appointments` - Create new appointment
-- `PUT /api/appointments/{id}` - Update appointment
-- `DELETE /api/appointments/{id}` - Delete appointment
-- `GET /api/appointments/patient/{patientId}` - Get appointments by patient
-- `GET /api/appointments/doctor/{doctorId}` - Get appointments by doctor
-- `POST /api/appointments/search` - Search appointments
-
-## 📊 Database Schema
-
-### Patient
-- Id (Primary Key)
-- Name
-- Email
-- PhoneNumber
-- DateOfBirth
-- Gender
-- Address
-- MedicalHistory
-- RegistrationDate
-- IsActive
-
-### Doctor
-- Id (Primary Key)
-- Name
-- Email
-- PhoneNumber
-- Specialization
-- LicenseNumber
-- YearsOfExperience
-- IsAvailable
-- HireDate
-- IsActive
-
-### Appointment
-- Id (Primary Key)
-- PatientId (Foreign Key)
-- DoctorId (Foreign Key)
-- AppointmentDate
-- AppointmentTime
-- AppointmentType
-- Symptoms
-- Diagnosis
-- Prescription
-- Status
-- Notes
-- CreatedDate
-
-## 🔧 Configuration
-
-The application uses `appsettings.json` for configuration:
-
-```json
-{
-  "ConnectionStrings": {
-    "DefaultConnection": "Data Source=app.db"
-  },
-  "Logging": {
-    "LogLevel": {
-      "Default": "Information",
-      "Microsoft.AspNetCore": "Warning"
-    }
-  }
-}
-```
-
-## 🧪 Testing the API
-
-### Using Swagger UI
-
-1. Navigate to `http://localhost:5000/swagger`
-2. Explore available endpoints
-3. Test API calls directly from the browser
-
-### Using curl
-
-   ```bash
-# Get all patients
-curl -X GET "http://localhost:5000/api/patients"
-
-# Create a new patient
-curl -X POST "http://localhost:5000/api/patients" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "name": "Ehab",
-    "email": "Ehab@email.com",
-    "phoneNumber": "01029236732",
-    "dateOfBirth": "1990-01-01T00:00:00",
-    "gender": "Male",
-    "address": "Egypt"
-  }'
-```
-
-## 📁 Project Structure
-
-```
-HospitalManagementSystem/
-├── Controllers/          # API Controllers
-├── Data/                # Database context and migrations
-├── DTOs/                # Data Transfer Objects
-├── Mapping/             # AutoMapper profiles
-├── Models/              # Entity models
-├── Services/            # Business logic services
-├── Program.cs           # Application entry point
-├── appsettings.json     # Configuration
-└── API_DOCUMENTATION.md # Detailed API documentation
-```
-
-## 🔒 Security Considerations
-
-- Currently, the API is publicly accessible
-- For production use, implement proper authentication and authorization
-- Consider using JWT tokens or API keys
-- Implement rate limiting
-- Use HTTPS in production
-
-## 🚀 Deployment
-
-### Local Development
-   ```bash
-   dotnet run
-   ```
-
-### Production
-```bash
-dotnet publish -c Release
-```
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 📞 Contact
-
-**Ehab Ashraf Mourad**
-- GitHub: [eh3p](https://github.com/eh3p)
-- Email: ehabashraf1667@gmail.com
-
-## 🙏 Acknowledgments
-
-- ASP.NET Core team for the excellent framework
-- Entity Framework team for the ORM
-- Swagger team for the API documentation tools
-- AutoMapper team for the mapping library
+**🔧 Currently working on:** Hospital Management System API  
+**🌱 Learning:** Advanced .NET Core patterns and microservices architecture  
+**💬 Ask me about:** ASP.NET Core, Entity Framework, REST APIs, Database Design
 
 ---
 
-**Note**: This is a development version. For production use, ensure proper security measures are implemented.
+## 🛠️ Tech Stack
 
-## 📊 Project Statistics
+### **Backend Development**
+![.NET](https://img.shields.io/badge/.NET-512BD4?style=for-the-badge&logo=.net&logoColor=white)
+![C#](https://img.shields.io/badge/C%23-239120?style=for-the-badge&logo=c-sharp&logoColor=white)
+![ASP.NET Core](https://img.shields.io/badge/ASP.NET_Core-512BD4?style=for-the-badge&logo=.net&logoColor=white)
+![Entity Framework](https://img.shields.io/badge/Entity_Framework-512BD4?style=for-the-badge&logo=.net&logoColor=white)
 
-![GitHub stars](https://img.shields.io/github/stars/eh3p/hospital-management-system?style=social)
-![GitHub forks](https://img.shields.io/github/forks/eh3p/hospital-management-system?style=social)
-![GitHub issues](https://img.shields.io/github/issues/eh3p/hospital-management-system)
-![GitHub pull requests](https://img.shields.io/github/issues-pr/eh3p/hospital-management-system)
-![GitHub license](https://img.shields.io/github/license/eh3p/hospital-management-system)
+### **Database & ORM**
+![SQL Server](https://img.shields.io/badge/SQL_Server-CC2927?style=for-the-badge&logo=microsoft-sql-server&logoColor=white)
+![SQLite](https://img.shields.io/badge/SQLite-07405E?style=for-the-badge&logo=sqlite&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)
 
-## 📋 Table of Contents
+### **Frontend Development**
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E)
+![Bootstrap](https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white)
 
-- [🚀 Quick Start](#-quick-start)
-- [📚 API Endpoints](#-api-endpoints)
-- [📊 Database Schema](#-database-schema)
-- [🔧 Configuration](#-configuration)
-- [🧪 Testing](#-testing)
-- [📁 Project Structure](#-project-structure)
-- [🔒 Security](#-security)
-- [🚀 Deployment](#-deployment)
-- [🤝 Contributing](#-contributing)
-- [📄 License](#-license)
-- [📞 Contact](#-contact)
+### **Tools & Technologies**
+![Git](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white)
+![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)
+![Visual Studio](https://img.shields.io/badge/Visual_Studio-5C2D91?style=for-the-badge&logo=visual-studio&logoColor=white)
+![VS Code](https://img.shields.io/badge/VS_Code-007ACC?style=for-the-badge&logo=visual-studio-code&logoColor=white)
+![Swagger](https://img.shields.io/badge/Swagger-85EA2D?style=for-the-badge&logo=swagger&logoColor=black)
 
-## 🎯 Key Features
-
-- **🏥 Complete Hospital Management**: Patient, Doctor, and Appointment management
-- **🔍 Advanced Search**: Search across all entities with filters
-- **📊 Real-time Data**: Live database with Entity Framework Core
-- **🔐 Security Ready**: Built with security best practices
-- **📚 Auto Documentation**: Swagger/OpenAPI integration
-- **🧪 Validation**: Comprehensive input validation
-- **📈 Scalable**: Clean architecture for easy scaling
-
-## 🏗️ Architecture
-
-```
-┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
-│   Controllers   │    │    Services     │    │   Data Access   │
-│   (API Layer)   │◄──►│  (Business      │◄──►│   (EF Core)     │
-│                 │    │    Logic)       │    │                 │
-└─────────────────┘    └─────────────────┘    └─────────────────┘
-         │                       │                       │
-         ▼                       ▼                       ▼
-┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
-│      DTOs       │    │   AutoMapper    │    │   SQLite DB     │
-│  (Data Transfer)│    │   (Mapping)     │    │   (Storage)     │
-└─────────────────┘    └─────────────────┘    └─────────────────┘
-```
+### **Architecture & Patterns**
+![REST API](https://img.shields.io/badge/REST_API-FF6B6B?style=for-the-badge&logo=api&logoColor=white)
+![Microservices](https://img.shields.io/badge/Microservices-FF6B6B?style=for-the-badge&logo=docker&logoColor=white)
+![SOLID Principles](https://img.shields.io/badge/SOLID_Principles-FF6B6B?style=for-the-badge&logo=code&logoColor=white)
+![Clean Architecture](https://img.shields.io/badge/Clean_Architecture-FF6B6B?style=for-the-badge&logo=architecture&logoColor=white)
 
 ---
 
-**Created with ❤️ by Ehab Ashraf Mourad** 
+## 🏆 Featured Projects
+
+### 🏥 Hospital Management System API
+[![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/eh3p/hospital-management-system)
+[![.NET](https://img.shields.io/badge/.NET-512BD4?style=for-the-badge&logo=.net&logoColor=white)](https://dotnet.microsoft.com/)
+[![Entity Framework](https://img.shields.io/badge/Entity_Framework-512BD4?style=for-the-badge&logo=.net&logoColor=white)](https://docs.microsoft.com/en-us/ef/)
+
+> **A comprehensive REST API for hospital operations management**
+
+**Key Features:**
+- ✅ Complete CRUD operations for Patients, Doctors, and Appointments
+- ✅ Advanced search functionality with filters
+- ✅ Real-time database with Entity Framework Core
+- ✅ AutoMapper for clean data mapping
+- ✅ Swagger/OpenAPI documentation
+- ✅ Comprehensive error handling and validation
+- ✅ Professional documentation and security policies
+
+**Technologies:** ASP.NET Core 9.0, Entity Framework Core, SQLite, AutoMapper, Swagger
+
+---
+
+## 📊 GitHub Statistics
+
+<div align="center">
+  <img src="https://github-readme-stats.vercel.app/api?username=eh3p&show_icons=true&theme=radical&hide_border=true&bg_color=0D1117&title_color=58A6FF&text_color=8B949E&icon_color=58A6FF" alt="GitHub Stats" />
+  <img src="https://github-readme-streak-stats.herokuapp.com/?user=eh3p&theme=radical&hide_border=true&background=0D1117&stroke=58A6FF&ring=58A6FF&fire=58A6FF&currStreakNum=8B949E&currStreakLabel=58A6FF&sideNums=8B949E&sideLabels=8B949E&dates=8B949E" alt="GitHub Streak" />
+</div>
+
+<div align="center">
+  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=eh3p&layout=compact&theme=radical&hide_border=true&bg_color=0D1117&title_color=58A6FF&text_color=8B949E" alt="Top Languages" />
+</div>
+
+---
+
+## 🎯 Skills & Expertise
+
+### **Backend Development**
+- **ASP.NET Core**: Building scalable web APIs and applications
+- **Entity Framework**: Database-first and code-first approaches
+- **RESTful APIs**: Designing and implementing REST services
+- **Authentication & Authorization**: JWT tokens, Identity framework
+- **API Documentation**: Swagger/OpenAPI integration
+
+### **Database Management**
+- **SQL Server**: Complex queries, stored procedures, optimization
+- **SQLite**: Lightweight database solutions
+- **Database Design**: Normalization, relationships, indexing
+- **Migration Management**: Version control for database changes
+
+### **Software Architecture**
+- **SOLID Principles**: Clean, maintainable code design
+- **Design Patterns**: Repository, Factory, Strategy patterns
+- **Microservices**: Scalable, distributed systems
+- **Clean Architecture**: Separation of concerns
+
+### **Development Practices**
+- **Git & GitHub**: Version control and collaboration
+- **Code Review**: Quality assurance and best practices
+- **Testing**: Unit testing and integration testing
+- **Documentation**: Comprehensive project documentation
+
+---
+
+## 🚀 Current Focus
+
+### **Learning Goals**
+- 🔥 Advanced .NET Core patterns and practices
+- 🏗️ Microservices architecture and design
+- 🔐 Advanced security implementations
+- 📊 Performance optimization techniques
+- 🧪 Advanced testing strategies
+
+### **Projects in Development**
+- 🏥 **Hospital Management System** - Complete API solution
+- 🔐 **Authentication System** - JWT-based security
+- 📱 **Mobile API** - Cross-platform mobile support
+- 🎯 **Portfolio Website** - Personal showcase
+
+---
+
+## 📫 Get In Touch
+
+<div align="center">
+  <a href="mailto:ehabashraf1667@gmail.com">
+    <img src="https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white" alt="Email" />
+  </a>
+  <a href="https://github.com/eh3p">
+    <img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white" alt="GitHub" />
+  </a>
+  <a href="https://www.linkedin.com/in/ehab-ashraf-9a43a9283">
+    <img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn" />
+  </a>
+</div>
+
+### **Let's Connect!**
+- 📧 **Email**: ehabashraf1667@gmail.com
+- 💼 **GitHub**: [@eh3p](https://github.com/eh3p)
+- 🔗 **LinkedIn**: [Ehab Ashraf Mourad](https://www.linkedin.com/in/ehab-ashraf-9a43a9283)
+
+---
+
+## 🎉 Fun Facts
+
+- 🎯 **Goal**: Building scalable, efficient software solutions
+- 🌱 **Learning**: Always exploring new technologies and best practices
+- 💡 **Passion**: Creating clean, maintainable code that solves real problems
+- 🚀 **Vision**: Contributing to innovative projects that make a difference
+
+---
+
+<div align="center">
+  <img src="https://komarev.com/ghpvc/?username=eh3p&style=flat-square&color=blue" alt="Profile Views" />
+  
+  **Thanks for visiting my profile! Feel free to explore my projects and get in touch!** 🚀
+</div> 
