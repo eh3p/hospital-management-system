@@ -53,3 +53,6 @@ dotnet ef database update
 
 # Run application
 dotnet run
+
+# After running the application, open your browser and go to
+http://localhost:5000
